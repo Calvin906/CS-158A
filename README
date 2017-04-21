@@ -1,0 +1,10 @@
+To compile:
+Open two seperate terminal.
+In one terminal type: gcc -o server sel_tcp_udp.c
+in the other, type: gcc -o client tcp_client.c
+
+Now, in one terminal type: ./server
+In the other, type: ./client localhost 1234
+
+In the client window, you will be prompt to enter a message,
+enter something and it should be shown on the server terminal
