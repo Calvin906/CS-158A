@@ -34,20 +34,30 @@ void main(int argc,char *argv[])
     perror("failed to connect\n");
     exit(1);
   }
-  bzero(buffer,256);
-  printf("Enter message TCP: ");
-  fgets(buffer,256,stdin);
-  //system(buffer);
-  n = write(sock,buffer,strlen(buffer));
-  if(n<0)
-    printf("Error in writing data\n");
+  while(1)
+  {
+      bzero(buffer,256);
+      printf("Enter message TCP: ");
+      fgets(buffer,256,stdin);
+      //system(buffer);
+      n = write(sock,buffer,strlen(buffer));
+      if(n<0)
+        printf("Error in writing data\n");
 
-  bzero(buffer,256);
-  n = read(sock,buffer,256);
-  printf("%s",buffer);
-  if(n<0)
-    printf("Error in reading data\n");
+      bzero(buffer,256);
+      n = read(sock,buffer,256);
+      printf("%s",buffer);
+      if(n<0)
+        printf("Error in reading data\n");
 
+    //Add your code in here for sending a message, string, or whatever
+    //It should be simillar to the block like above
+    //You can create the protocol and send the data.
+    //One block writes the message to the server, and the other block
+    //reads a server's reponse
+  }
+  /*
+  //This is for UDP exchange, we might use this later if we have time
   bzero(buffer,256);
   printf("Ask for data: ");
   fgets(buffer,256,stdin);
@@ -61,7 +71,7 @@ void main(int argc,char *argv[])
   printf("%s",buffer);
   if(n<0)
     printf("Error in reading data\n");
-
+  */
 
   close(sock);
 }
