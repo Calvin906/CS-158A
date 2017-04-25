@@ -1,10 +1,18 @@
 To compile:
 Open two seperate terminal.
-In one terminal type: gcc -o server sel_tcp_udp.c
+In one terminal type: gcc -o server tcp_server.c
 in the other, type: gcc -o client tcp_client.c
 
 Now, in one terminal type: ./server 1234
 In the other, type: ./client localhost 1234
 
+NOTE: In case you are getting an error that the port is already in use,
+try a different number (ex: 1222)
+
 In the client window, you will be prompt to enter a message,
 enter something and it should be shown on the server terminal
+
+Zur - Working on making protocol 4 more nicer with an ack and a timer.
+Alex -
+Adam -
+Bikram -
