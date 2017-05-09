@@ -72,6 +72,8 @@ void main(int argc,char *argv[])
         printf("Error in reading data\n");
 
       memcpy( sub1, buffer, 10);
+
+      /*******************Protocol 4********************************/
       if(strcmp(sub1, "Protocol 4") == 0){
 
         printf("You have entered %s\n", buffer);
@@ -102,9 +104,9 @@ void main(int argc,char *argv[])
         printf("Error in reading data\n");
 
         }
-        
-      }
 
+      }
+      /*******************Protocol 5********************************/
       else if(strcmp(sub1, "Protocol 5") == 0){
         printf("You have entered %s\n", buffer);
         n = write(newsd,buffer,23);
@@ -124,26 +126,33 @@ void main(int argc,char *argv[])
           char sub2[5] = {0};
           memcpy( sub2, buffer, 4);
           if(strcmp(sub2, "Exit") == 0){
+            printf("Exiting Protocol 5\n");
             isProtocol5 = 0;
-          }
-          else{
-            //send ack
-            n = write(newsd, "Ack for 5", 23);
+            n = write(newsd, "Exiting Protocol 5\n", 23);
             if(n<0){
               printf("Error in writing data\n");
             }
+          }
+          else{
+            //send ack
+            n = write(newsd, "Ack for 5\n", 23);
+            if(n<0){
+              printf("Error in writing data\n");
+            }
+            printf("message = %s\n",buffer);
 
           }
-
-
-
-
-          n = write(newsd, "Ack\n", 23);
-          if(n<0)
-            printf("Error in writing data\n");
+          //
+          //
+          //
+          //
+          // n = write(newsd, "Ack\n", 23);
+          // if(n<0)
+          //   printf("Error in writing data\n");
         }
       }
 
+      /*******************Protocol 6********************************/
       else if(strcmp(sub1, "Protocol 6") == 0){
         printf("You have entered %s\n", buffer);
       }
