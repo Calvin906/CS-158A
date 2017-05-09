@@ -13,7 +13,7 @@ void main(int argc,char *argv[])
   int sock,newsock,n,addrlen;
   struct sockaddr_in server_addr,client_addr;
   char buffer[256] = {0};
-  struct hostent *host;
+  struct hostent *host; //This data type is used to represent an entry in the hosts database
   
   sock = socket(AF_INET,SOCK_STREAM,0) ; //create a socket
   if(sock<0)
