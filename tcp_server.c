@@ -10,11 +10,10 @@
 
 void main(int argc,char *argv[])
 {
-  int sds,newsd,n,addrlen,portno,pUsage=10,i;
+  int sds,newsd,n,addrlen,portno,i;
   long sum=0;
-  char buffer[256] = {0}, pUsageChr[10]={0};
+  char buffer[256] = {0};
   struct sockaddr_in server_addr,client_addr;
-  struct rusage usage;
 
   /*************************Create a Socket****************************/
   sds = socket(AF_INET,SOCK_STREAM,0) ;
@@ -26,7 +25,6 @@ void main(int argc,char *argv[])
   }
 
   /********************Server Address Structure for bind***************/
-  //bzero();
   portno = atoi(argv[1]);
   printf("port = %d\n",portno);
   server_addr.sin_family = AF_INET;
@@ -55,12 +53,6 @@ void main(int argc,char *argv[])
     exit(1);
   }
   
-  /***********getrusage************************
-  //for(i=0;i<10000;i++) sum+=i;
-  pUsage  = getrusage(RUSAGE_SELF,&usage);
-  sprintf(pUsageChr,"%d",pUsage);
-  printf("process usage = %d %s\n",pUsage,pUsageChr);/
-
   /******************Reading data from client***************************/ 
   while(1){
       bzero(buffer,256);
@@ -73,7 +65,6 @@ void main(int argc,char *argv[])
 
   /******************Writing data to client*****************************/ 
   n = write(newsd,buffer,23);
-  //n = write(newsd,pUsageChr,10);
   if(n<0)
     printf("Error in writing data\n");  
 }
