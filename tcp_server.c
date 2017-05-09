@@ -96,16 +96,54 @@ void main(int argc,char *argv[])
          n = read(newsd,buffer,255);
       if(n<0)
         printf("Error in reading data\n");
-          
+
         }
         printf("You have exited %s\n", buffer);
       }
+
       else if(strcmp(sub1, "Protocol 5") == 0){
         printf("You have entered %s\n", buffer);
+        n = write(newsd,buffer,23);
+        if(n<0){
+          printf("Error in writing data\n");
+        }
+        int isProtocol5 = 1;
+        while(isProtocol5){
+          //re-read from newsd so clear buffer
+          bzero(buffer, 256);
+          n = read(newsd,buffer,255);
+          if(n<0){
+            printf("Error in reading data\n");
+          }
+
+          //check if Exit was entered
+          char sub2[5] = {0};
+          memcpy( sub2, buffer, 4);
+          if(strcmp(sub2, "Exit") == 0){
+            isProtocol5 = 0;
+          }
+          else{
+            //send ack
+            n = write(newsd, "Ack for 5", 23);
+            if(n<0){
+              printf("Error in writing data\n");
+            }
+
+          }
+
+
+
+
+          n = write(newsd, "Ack\n", 23);
+          if(n<0)
+            printf("Error in writing data\n");
+        }
       }
+
       else if(strcmp(sub1, "Protocol 6") == 0){
         printf("You have entered %s\n", buffer);
       }
+
       else{
         printf("message = %s\n",buffer);
         // int help = strcmp(buffer, "Protocol 5");
@@ -116,11 +154,11 @@ void main(int argc,char *argv[])
       }
 
   /******************Writing data to client*****************************/
-  
+
   //n = write(newsd,pUsageChr,10);
 
 
-  
+
 }
 
 }
