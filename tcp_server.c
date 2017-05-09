@@ -73,7 +73,32 @@ void main(int argc,char *argv[])
 
       memcpy( sub1, buffer, 10);
       if(strcmp(sub1, "Protocol 4") == 0){
+
         printf("You have entered %s\n", buffer);
+        int isProtocol4 = 1;
+        //printf("he\n");
+        while(isProtocol4) {
+          //printf("he\n");
+          n = write(newsd, "Ack\n", 23);
+          if(n<0)
+            printf("Error in writing data\n");
+          char sub2[5] = {0};
+          bzero(sub2, 5);
+          memcpy( sub2, buffer, 4);
+          if (strcmp(sub2, "Exit") == 0)
+          {
+            isProtocol4 = 0;
+          }
+
+        bzero(buffer,256);
+        char sub1[11] = {0};
+        bzero(sub1, 11);
+         n = read(newsd,buffer,255);
+      if(n<0)
+        printf("Error in reading data\n");
+          
+        }
+        printf("You have exited %s\n", buffer);
       }
       else if(strcmp(sub1, "Protocol 5") == 0){
         printf("You have entered %s\n", buffer);
@@ -85,13 +110,17 @@ void main(int argc,char *argv[])
         printf("message = %s\n",buffer);
         // int help = strcmp(buffer, "Protocol 5");
         // printf("The result is: %d\n", help);
+        n = write(newsd,buffer,23);
+        if(n<0)
+          printf("Error in writing data\n");
       }
 
   /******************Writing data to client*****************************/
-  n = write(newsd,buffer,23);
+  
   //n = write(newsd,pUsageChr,10);
-  if(n<0)
-    printf("Error in writing data\n");
+
+
+  
 }
 
 }
