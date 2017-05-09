@@ -63,7 +63,7 @@ void main(int argc,char *argv[])
       bzero(buffer,256);
   
       n = read(newsd,buffer,255);
-      printf("message = %s\n",buffer);
+      printf("message from client = %s\n",buffer);
       if(n<0)
         printf("Error in reading data\n");
     

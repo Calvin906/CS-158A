@@ -45,7 +45,7 @@ void main(int argc,char *argv[])
 
       bzero(buffer,256);
       n = read(sock,buffer,256);
-      printf("%s",buffer);
+      printf("Server received: %s",buffer);
       if(n<0)
         printf("Error in reading data\n");
 
