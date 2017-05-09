@@ -11,13 +11,15 @@
 void main(int argc,char *argv[])
 {
   int sds,newsd,n,addrlen,portno,i;
-  long sum=0;
   char buffer[256] = {0};
-  struct sockaddr_in server_addr,client_addr;
+  struct sockaddr_in server_addr,client_addr; //using those structs from netinet/in.h
 
   /*************************Create a Socket****************************/
+  //socket(int domain, int type, int protocol)
   sds = socket(AF_INET,SOCK_STREAM,0) ;
+  //printing the socket value, mainly for debugging
   printf("socket value = %d\n",sds);
+  //If socket value is less then 0, the socket could not be opened
   if(sds<0)
   {
     perror("failed to open a socket\n");
@@ -25,8 +27,11 @@ void main(int argc,char *argv[])
   }
 
   /********************Server Address Structure for bind***************/
+  //Taking port number from the commad line as an argument
   portno = atoi(argv[1]);
+  //printing the port number, mainly for debugging
   printf("port = %d\n",portno);
+  //setting the fields for the server address struct
   server_addr.sin_family = AF_INET;
   server_addr.sin_port = htons(portno);
   server_addr.sin_addr.s_addr = INADDR_ANY;
