@@ -7,6 +7,7 @@
 #include <string.h>
 
 //#define portno 1234
+void protocol_4(char buffer[], int n, int sock);
 
 void main(int argc,char *argv[])
 {
@@ -40,13 +41,21 @@ void main(int argc,char *argv[])
       printf("Enter message TCP: ");
       fgets(buffer,256,stdin);
       //system(buffer);
-      n = write(sock,buffer,strlen(buffer));
+      char sub1[11] = {0};
+      bzero(sub1, 11);
+      memcpy(sub1, buffer, 10);
+      if (strcmp(sub1, "Protocol 4") == 0)
+      {
+        protocol_4(buffer, n, sock);
+      } else {
+        n = write(sock,buffer,strlen(buffer));
       if(n<0)
         printf("Error in writing data\n");
+    }
 
       bzero(buffer,256);
       n = read(sock,buffer,256);
-      printf("%s",buffer);
+      printf("%s\n",buffer);
       if(n<0)
         printf("Error in reading data\n");
 
@@ -75,16 +84,23 @@ void main(int argc,char *argv[])
 
   close(sock);
 }
-<<<<<<< Updated upstream
-=======
+
 
 void protocol_4(char buffer[], int n, int sock){
-  int len = strlen(buffer) + 1;
-        char frame[257] = {0};
+        int len = strlen(buffer);
+        char frame[len];
         memcpy(frame, buffer, 10);
-        frame[len] = '0';
+        if ((frame[len-1] == '1') == 0)
+        {
+          frame[len-1] = '0';
+          n = write(sock,frame,strlen(frame));
+        if(n<0)
+        printf("Error in writing data\n");
+        } else {
+        frame[len-1] = '0';
         n = write(sock,frame,strlen(frame));
         if(n<0)
         printf("Error in writing data\n");
+    }
 }
->>>>>>> Stashed changes
+

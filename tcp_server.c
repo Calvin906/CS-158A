@@ -5,8 +5,11 @@
 #include <netinet/in.h>
 #include <sys/resource.h>
 #include <strings.h>
+#include <time.h>
 
 //#define portno 1234
+
+void protocol_4(char buffer[], int n, char newsd[]);
 
 void main(int argc,char *argv[])
 {
@@ -73,39 +76,8 @@ void main(int argc,char *argv[])
 
       memcpy( sub1, buffer, 10);
       if(strcmp(sub1, "Protocol 4") == 0){
-
-        printf("You have entered %s\n", buffer);
-        int isProtocol4 = 1;
-        while(isProtocol4) {
-          n = write(newsd, "Ack\n", 23);
-          printf("message = %s\n",buffer);
-          if(n<0)
-            printf("Error in writing data\n");
-          char sub2[5] = {0};
-          bzero(sub2, 5);
-          memcpy( sub2, buffer, 4);
-          if (strcmp(sub2, "Exit") == 0)
-          {
-            isProtocol4 = 0;
-            n = write(newsd, "You have exited Protocol 4. \n", 33);
-          if(n<0)
-            printf("Error in writing data\n");
-          printf("You have exited Protocol 4. \n");
-            break;
-          }
-
-        bzero(buffer,256);
-        char sub1[11] = {0};
-        bzero(sub1, 11);
-        n = read(newsd,buffer,255);
-        if(n<0)
-        printf("Error in reading data\n");
-
-        }
-        
-      }
-
-      else if(strcmp(sub1, "Protocol 5") == 0){
+        protocol_4(buffer, n, newsd);
+      } else if(strcmp(sub1, "Protocol 5") == 0){
         printf("You have entered %s\n", buffer);
         n = write(newsd,buffer,23);
         if(n<0){
@@ -134,21 +106,11 @@ void main(int argc,char *argv[])
             }
 
           }
-
-
-
-
           n = write(newsd, "Ack\n", 23);
           if(n<0)
             printf("Error in writing data\n");
         }
-      }
-
-      else if(strcmp(sub1, "Protocol 6") == 0){
-        printf("You have entered %s\n", buffer);
-      }
-
-      else{
+      } else{
         printf("message = %s\n",buffer);
         // int help = strcmp(buffer, "Protocol 5");
         // printf("The result is: %d\n", help);
@@ -169,8 +131,6 @@ void main(int argc,char *argv[])
   /******************Close the Socket***********************************/
   close(sds);
 }
-<<<<<<< Updated upstream
-=======
 
 void protocol_4(char buffer[], int n, char newsd[]){
   printf("You have entered %s\n", buffer);
@@ -179,16 +139,19 @@ void protocol_4(char buffer[], int n, char newsd[]){
           int bufLen = strlen(buffer);
           char frame[bufLen];
           memcpy(frame, buffer, 10);
-          int len = strlen(frame);
-          if (frame[len-1] == '0')
+          if ((frame[bufLen-1] == '0') == 0)
           {
-            printf("eee");
-            frame[len] = '1';
-            n = write(newsd, frame, 23);
+            //printf("eee\n");
+            buffer[bufLen-1] = '1';
+            printf("message = %s \n",buffer);
+            unsigned int retTime = time(0) + 3;
+            while(time(0) < retTime);
+            n = write(newsd, "ack", 23);
+          }else {
+            n = write(newsd, buffer, 23);
+            printf("message = %s \n",buffer);
           }
-          n = write(newsd, buffer, 23);
-          
-          printf("message = %s\n",buffer);
+        
           if(n<0)
             printf("Error in writing data\n");
           char sub2[5] = {0};
@@ -213,4 +176,4 @@ void protocol_4(char buffer[], int n, char newsd[]){
 
         }
 }
->>>>>>> Stashed changes
+
