@@ -75,3 +75,16 @@ void main(int argc,char *argv[])
 
   close(sock);
 }
+<<<<<<< Updated upstream
+=======
+
+void protocol_4(char buffer[], int n, int sock){
+  int len = strlen(buffer) + 1;
+        char frame[257] = {0};
+        memcpy(frame, buffer, 10);
+        frame[len] = '0';
+        n = write(sock,frame,strlen(frame));
+        if(n<0)
+        printf("Error in writing data\n");
+}
+>>>>>>> Stashed changes

@@ -169,3 +169,48 @@ void main(int argc,char *argv[])
   /******************Close the Socket***********************************/
   close(sds);
 }
+<<<<<<< Updated upstream
+=======
+
+void protocol_4(char buffer[], int n, char newsd[]){
+  printf("You have entered %s\n", buffer);
+        int isProtocol4 = 1;
+        while(isProtocol4) {
+          int bufLen = strlen(buffer);
+          char frame[bufLen];
+          memcpy(frame, buffer, 10);
+          int len = strlen(frame);
+          if (frame[len-1] == '0')
+          {
+            printf("eee");
+            frame[len] = '1';
+            n = write(newsd, frame, 23);
+          }
+          n = write(newsd, buffer, 23);
+          
+          printf("message = %s\n",buffer);
+          if(n<0)
+            printf("Error in writing data\n");
+          char sub2[5] = {0};
+          bzero(sub2, 5);
+          memcpy( sub2, buffer, 4);
+          if (strcmp(sub2, "Exit") == 0)
+          {
+            isProtocol4 = 0;
+            n = write(newsd, "You have exited Protocol 4. \n", 33);
+          if(n<0)
+            printf("Error in writing data\n");
+          printf("You have exited Protocol 4. \n");
+            break;
+          }
+
+        bzero(buffer,256);
+        char sub1[11] = {0};
+        bzero(sub1, 11);
+        n = read(newsd,buffer,255);
+        if(n<0)
+        printf("Error in reading data\n");
+
+        }
+}
+>>>>>>> Stashed changes
