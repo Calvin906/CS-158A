@@ -76,7 +76,7 @@ void main(int argc,char *argv[])
 
       memcpy( sub1, buffer, 10);
       if(strcmp(sub1, "Protocol 4") == 0){
-        protocol_4(buffer, n, newsd);
+        protocol_4(buffer, n, newsd); //Call Protocol_4 and run it. 
       } else if(strcmp(sub1, "Protocol 5") == 0){
         printf("You have entered %s\n", buffer);
         n = write(newsd,buffer,23);
@@ -141,7 +141,6 @@ void protocol_4(char buffer[], int n, char newsd[]){
           memcpy(frame, buffer, 10);
           if ((frame[bufLen-1] == '0') == 0)
           {
-            //printf("eee\n");
             buffer[bufLen-1] = '1';
             printf("message = %s \n",buffer);
             unsigned int retTime = time(0) + 3;
