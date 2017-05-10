@@ -146,7 +146,7 @@ void protocol_4(char buffer[], int n, char newsd[]){
             printf("message = %s \n",buffer);
             unsigned int retTime = time(0) + 3;
             while(time(0) < retTime);
-            n = write(newsd, "ack", 23);
+            n = write(newsd, "Ack Received", 23);
           }else {
             n = write(newsd, buffer, 23);
             printf("message = %s \n",buffer);
